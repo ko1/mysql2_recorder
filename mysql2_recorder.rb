@@ -20,9 +20,11 @@ end
 
 module Mysql2
   class QueryCache
+    VERBOSE = ENV['QC_VERBOSE'] || $VERBOSE
+    
     class Rack
       def initialize app
-        p enabled: self.class if $VERBOSE
+        p enabled: self.class if VERBOSE
         @app = app
       end
 
@@ -43,7 +45,7 @@ module Mysql2
     QC_CACHE = {}
 
     def debug_msg
-      if $VERBOSE
+      if VERBOSE
         STDERR.puts "Mysql2::QueryCache: #{yield}"
       end
     end
